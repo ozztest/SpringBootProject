@@ -7,11 +7,15 @@ import com.example.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 /**
  * Created by ozgen on 06.04.2017.
  */
+@Transactional
 @Service
 public class EmployeeService implements IEmployeeService {
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -27,14 +31,14 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public Employee save(Employee employee) {
-        return this.employeeRepository.save(employee);
+    public void save(Employee employee) {
+        this.employeeRepository.save(employee);
     }
 
     @Override
-    public Employee update(Employee employee) {
+    public void update(Employee employee) {
         if (employeeRepository.exists(employee.getId())) {
-            return employeeRepository.save(employee);
+            employeeRepository.save(employee);
         } else {
             throw new CustomException("Guncellenecek Kayit Bulunamadi");
         }

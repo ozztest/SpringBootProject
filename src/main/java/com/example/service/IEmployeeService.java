@@ -11,9 +11,9 @@ public interface IEmployeeService {
 
     Employee findById(Long id);
 
-    Employee save(Employee employee);
+    void save(Employee employee);
 
-    Employee update(Employee employee);
+    void update(Employee employee);
 
     boolean remove(Long id);
 

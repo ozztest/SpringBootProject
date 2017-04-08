@@ -1,17 +1,17 @@
 package com.example.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by ozgen.gures on 05.04.2017.
  */
 @Entity
+@Table(name = "department")
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO )
     private Long id;
 
     private String name;
@@ -19,10 +19,19 @@ public class Department {
     private String description;
 
     @OneToMany
-    private Set<Employee> employees = new HashSet<>();
+    @JoinTable(name="department_employee",
+            joinColumns = @JoinColumn(name="department_id"),
+            inverseJoinColumns = @JoinColumn(name="employee_id"))
+    private List<Employee> employee ;
 
-    @ManyToMany
-    private Set<Meeting> meetings = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinTable(name = "department_meeting",
+            joinColumns = {@JoinColumn(name = "department_id")},
+            inverseJoinColumns = {@JoinColumn(name = "meeting_id")})
+    private List<Meeting> meetings ;
+
+    public Department() {
+    }
 
     public Department(String name, String description) {
         this.name = name;
@@ -53,19 +62,19 @@ public class Department {
         this.description = description;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
+    public List<Employee> getEmployee() {
+        return employee;
     }
 
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
+    public void setEmployee(List<Employee> employee) {
+        this.employee = employee;
     }
 
-    public Set<Meeting> getMeetings() {
+    public List<Meeting> getMeetings() {
         return meetings;
     }
 
-    public void setMeetings(Set<Meeting> meetings) {
+    public void setMeetings(List<Meeting> meetings) {
         this.meetings = meetings;
     }
 
@@ -75,7 +84,7 @@ public class Department {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", employees=" + employees +
+                ", employee=" + employee +
                 ", meetings=" + meetings +
                 '}';
     }

@@ -1,22 +1,13 @@
 package com.example;
 
-import com.example.repository.DepartmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages={"com.example"})// same as @Configuration @EnableAutoConfiguration @ComponentScan combined
 
 public class DemoApplication {
-
-	@Autowired
-	private DepartmentRepository departmentRepository;
-
-
-
-	public static void main(String[] args) {
+		public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
-
 
 }

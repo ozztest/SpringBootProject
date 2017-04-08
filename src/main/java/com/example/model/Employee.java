@@ -20,6 +20,14 @@ public class Employee {
 	@ManyToOne
 	private Department department;
 
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
 	public Employee() {
 	}
 
@@ -61,13 +69,6 @@ public class Employee {
 		this.salary = salary;
 	}
 
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
 
 	@Override
 	public String toString() {
@@ -76,7 +77,6 @@ public class Employee {
 				", name='" + name + '\'' +
 				", surname='" + surname + '\'' +
 				", salary=" + salary +
-				", department=" + department +
 				'}';
 	}
 }
